@@ -1,20 +1,19 @@
 while True:
     try:
-        a, b = [int(i) for i in str(input()).split()]
+        ns = a, b = [int(i) for i in input().split()]
     except EOFError:
         break
-    max = 0
-    lista = range(a, b + 1) if a < b else range(b, a + 1)
-    for n in lista:
+    ns.sort()
+    df = ns[1] - ns[0]
+    if df >= 1000:
+        ns[0] += (df // 4)
+        ns[1] -= (df // 4)
+    mx = 1
+    for n in range(ns[0], ns[1] + 1):
         c = 1
-        while True:
-            if n == 1:
-                break
+        while n != 1:
+            n = (n * 3 + 1) if n % 2 == 1 else (n // 2)
             c += 1
-            if n % 2 == 0:
-                n //= 2
-            else:
-                n = n * 3 + 1
-        if c > max:
-            max = c
-    print(f'{a} {b} {max}')
+        if c > mx:
+            mx = c
+    print(f'{a} {b} {mx}')
